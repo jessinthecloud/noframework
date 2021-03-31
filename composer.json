@@ -1,0 +1,22 @@
+{
+    "name": "noframework/test",
+    "description": "your project description",
+    "keywords": ["your keyword", "another keyword"],
+    "license": "mit",
+    "authors": [
+        {
+            "name": "your name",
+            "email": "your@email.com",
+            "role": "creator / main developer"
+        }
+    ],
+    "require": {
+        "php": ">=7.0.0",
+        "filp/whoops": "~2.1"
+    },
+    "autoload": {
+        "psr-4": {
+            "Example\\": "src/"
+        }
+    }
+}
