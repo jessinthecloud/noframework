@@ -43,10 +43,54 @@ $request = Request::createFromGlobals();
 holds all the information that needs to be sent back to the client from a given request
  */
 $response = new Response(
-    'Hello World', // response content
+    '', // response content
     Response::HTTP_OK, // status code; Response::HTTP_NOT_FOUND, etc
     ['content-type' => 'text/html'] // HTTP headers
 );
+
+/*
+register the available routes
+ */
+$dispatcher = \FastRoute\simpleDispatcher(function (\FastRoute\RouteCollector $r) {
+    $r->addRoute('GET', '/', function () {
+        echo 'Home';
+    });
+    $r->addRoute('GET', '/hello-world', function () {
+        echo 'Hello World';
+    });
+    $r->addRoute('GET', '/another-route', function () {
+        echo 'This works too';
+    });
+});
+
+// dispatch the route if found (execute the function for that route)
+$routeInfo = $dispatcher->dispatch($request->getMethod(), $request->getPathInfo());
+switch ($routeInfo[0]) {
+    case \FastRoute\Dispatcher::NOT_FOUND:
+        $response->setContent('404 - Page not found');
+        $response->setStatusCode(404);
+        break;
+    case \FastRoute\Dispatcher::METHOD_NOT_ALLOWED:
+        $response->setContent('405 - Method not allowed');
+        $response->setStatusCode(405);
+        break;
+    case \FastRoute\Dispatcher::FOUND:
+        $handler = $routeInfo[1];
+        $vars = $routeInfo[2];
+        call_user_func($handler, $vars);
+        break;
+}
+
+/*
+Can also change after obj creation
+
+$response->setContent('Hello World');
+
+// the headers public attribute is a ResponseHeaderBag
+$response->headers->set('Content-Type', 'text/plain');
+
+$response->setStatusCode(Response::HTTP_NOT_FOUND);
+ */
 
 // When setting the Content-Type of the Response, you can set the charset, but it is better to set it via the setCharset() method:
 // $response->setCharset('UTF-8');
