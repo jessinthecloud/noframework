@@ -76,7 +76,7 @@ switch ($routeInfo[0]) {
         $method = $routeInfo[1][1];
         $vars = $routeInfo[2];
         // instead of just calling a method you are now instantiating an object and then calling the method on it
-        $class = new $className;
+        $class = new $className($response);
         $class->$method($vars);
         break;
 }
