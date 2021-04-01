@@ -51,17 +51,14 @@ $response = new Response(
 /*
 register the available routes
  */
-$dispatcher = \FastRoute\simpleDispatcher(function (\FastRoute\RouteCollector $r) {
-    $r->addRoute('GET', '/', function () {
-        echo 'Home';
-    });
-    $r->addRoute('GET', '/hello-world', function () {
-        echo 'Hello World';
-    });
-    $r->addRoute('GET', '/another-route', function () {
-        echo 'This works too';
-    });
-});
+$routeDefinitionCallback = function (\FastRoute\RouteCollector $r) {
+    $routes = include('Routes.php');
+    foreach ($routes as $route) {
+        $r->addRoute($route[0], $route[1], $route[2]);
+    }
+};
+
+$dispatcher = \FastRoute\simpleDispatcher($routeDefinitionCallback);
 
 // dispatch the route if found (execute the function for that route)
 $routeInfo = $dispatcher->dispatch($request->getMethod(), $request->getPathInfo());
