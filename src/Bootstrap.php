@@ -27,7 +27,11 @@ if ($environment !== 'production') {
 }
 $whoops->register();
 
-$request = Request::createFromGlobals();
+// instead of making a new instance every time, we want to be passing the same one around
+$injector = include('Dependencies.php');
+
+$request = $injector->make('Symfony\Component\HttpFoundation\Request');
+
 /*
 Equivalent to 
 $request = new Request(
@@ -43,11 +47,7 @@ $request = new Request(
 /*
 holds all the information that needs to be sent back to the client from a given request
  */
-$response = new Response(
-    '', // response content
-    Response::HTTP_OK, // status code; Response::HTTP_NOT_FOUND, etc
-    ['content-type' => 'text/html'] // HTTP headers
-);
+$response = $injector->make('Symfony\Component\HttpFoundation\Response');
 
 /*
 register the available routes
@@ -77,8 +77,10 @@ switch ($routeInfo[0]) {
         $method = $routeInfo[1][1];
         $vars = $routeInfo[2];
         // instantiating object specified by the route 
+            // injecting Response to the contructor
+            // use the injector so that we are using the szme Response/Request
+        $class = $injector->make($className);
         // calling the method specified by the route
-        $class = new $className($response);
         $class->$method($vars);
         break;
 }

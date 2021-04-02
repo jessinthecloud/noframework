@@ -13,17 +13,23 @@ class Homepage
 {
     private $response;
 
-    // inversion of control with dependency injection --
+    // inversion of control with dependency injection (SOLID pattern) --
         // instead of making the class responsible for creating the obj it needs,
         // just ask for it instead
     //  inject the Response dependency 
-    public function __construct(Response $response)
+    public function __construct(Request $request, Response $response)
     {
+        $this->request = $request;
         $this->response = $response;
     }
 
     public function show()
     {
-        $this->response->setContent('Hello World');
+        $content = '<h1>Hello World</h1>';
+        // get($arg1, $arg2=null) Returns a parameter by name
+            // $arg1 : parameter name 
+            // $arg2 : default value to return if the parameter does not exist
+        $content .= 'Hello, ' . $this->request->query->get('name', 'stranger');
+        $this->response->setContent($content);
     }
 }
