@@ -14,7 +14,7 @@ Implementation of [No Framework Tutorial](https://github.com/PatrickLouys/no-fra
 
 # TODO
 - fix some possible security issues
-  - whitelist page files
+  - allowlist for page files
   - printing input directly to page
   - etc
 - read pages from database ?
