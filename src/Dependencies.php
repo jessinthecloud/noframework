@@ -28,4 +28,12 @@ $injector->delegate('\Twig\Environment', function () use ($injector) {
     return $twig;
 });
 
+// tell the injector about our interface relationships
+$injector->alias('Example\Page\PageReader', 'Example\Page\FilePageReader');
+$injector->share('Example\Page\FilePageReader');
+// tell injector how to populate the constructor
+$injector->define('Example\Page\FilePageReader', [
+    ':pageFolder' => __DIR__ . '/../pages',
+]);
+
 return $injector;
