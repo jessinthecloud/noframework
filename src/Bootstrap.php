@@ -2,7 +2,7 @@
 declare(strict_types = 1);
 
 namespace Example;
-// https://symfony.com/doc/current/components/http_foundation.html#installation
+// https://symfony.com/doc/current/components/http_foundation.html
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -17,6 +17,7 @@ $environment = 'development';
 * Register the error handler
 */
 $whoops = new \Whoops\Run;
+// ONLY show errors if we are on a testing server
 if ($environment !== 'production') {
     $whoops->pushHandler(new \Whoops\Handler\PrettyPageHandler);
 } else {
@@ -26,6 +27,7 @@ if ($environment !== 'production') {
 }
 $whoops->register();
 
+$request = Request::createFromGlobals();
 /*
 Equivalent to 
 $request = new Request(
@@ -37,7 +39,6 @@ $request = new Request(
     $_SERVER
 );
  */
-$request = Request::createFromGlobals();
 
 /*
 holds all the information that needs to be sent back to the client from a given request
@@ -75,14 +76,15 @@ switch ($routeInfo[0]) {
         $className = $routeInfo[1][0];
         $method = $routeInfo[1][1];
         $vars = $routeInfo[2];
-        // instead of just calling a method you are now instantiating an object and then calling the method on it
+        // instantiating object specified by the route 
+        // calling the method specified by the route
         $class = new $className($response);
         $class->$method($vars);
         break;
 }
 
 /*
-Can also change after obj creation
+Can also change after creation
 
 $response->setContent('Hello World');
 
