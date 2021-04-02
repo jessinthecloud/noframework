@@ -17,20 +17,15 @@ $injector->define('Symfony\Component\HttpFoundation\Request', [
     ':content'=> '' // raw body data
 ]);
 $injector->share('Symfony\Component\HttpFoundation\Response');
-
 // don't need alias because the Symfony Http Response and Request we are using are concrete classes; not interfaces or obstract
 
-/*$injector->alias('Http\Request', 'Http\HttpRequest');
-$injector->share('Http\HttpRequest');
-$injector->define('Http\HttpRequest', [
-    ':get' => $_GET,
-    ':post' => $_POST,
-    ':cookies' => $_COOKIE,
-    ':files' => $_FILES,
-    ':server' => $_SERVER,
-]);
-
-$injector->alias('Http\Response', 'Http\HttpResponse');
-$injector->share('Http\HttpResponse');*/
+// tell the injector about our Renderer interface relationships
+$injector->alias('Example\Template\Renderer', 'Example\Template\TwigRenderer');
+// Instead of just defining the dependencies, we are using a delegate to give the responsibility to create the class to a function
+$injector->delegate('\Twig\Environment', function () use ($injector) {
+    $loader = new \Twig\Loader\FilesystemLoader(dirname(__DIR__) . '/templates');
+    $twig = new \Twig\Environment($loader);
+    return $twig;
+});
 
 return $injector;
