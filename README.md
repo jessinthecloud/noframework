@@ -1,6 +1,6 @@
 # Overview 
 
-Implementation of [No Framework Tutorial](https://github.com/PatrickLouys/no-framework-tutorial/blob/master/10-dynamic-pages.md)
+Implementation of [No Framework Tutorial](https://github.com/PatrickLouys/no-framework-tutorial/)
 
 # Tools
 - [PHP](https://www.php.net/downloads.php)
