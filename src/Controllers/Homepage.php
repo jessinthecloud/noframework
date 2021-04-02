@@ -37,6 +37,13 @@ class Homepage
                 // $arg1 : parameter name 
                 // $arg2 : default value to return if the parameter does not exist
             'name' => $this->request->query->get('name', 'stranger'),
+            // send simple hardcode as menu
+            'menuItems' => [
+                [
+                    'href' => '/', 
+                    'text' => 'Homepage'
+                ]
+            ],
         ];
         // render the homepage template with the $data values
         $html = $this->renderer->render('Homepage', $data);
