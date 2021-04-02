@@ -36,4 +36,7 @@ $injector->define('Example\Page\FilePageReader', [
     ':pageFolder' => __DIR__ . '/../pages',
 ]);
 
+// tell injector about our front end interface
+$injector->alias('Example\Template\FrontendRenderer', 'Example\Template\FrontendTwigRenderer');
+
 return $injector;

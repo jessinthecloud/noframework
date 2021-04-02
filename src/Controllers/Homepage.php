@@ -8,7 +8,7 @@ namespace Example\Controllers;
 // import namespaces so we can call succintly with Response $reponse/Request $request
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Example\Template\Renderer;
+use Example\Template\FrontendRenderer;
 
 class Homepage
 {
@@ -21,7 +21,7 @@ class Homepage
     public function __construct(
         Request $request, 
         Response $response, 
-        Renderer $renderer
+        FrontendRenderer $renderer
     )
     {
         $this->request = $request;
@@ -37,13 +37,6 @@ class Homepage
                 // $arg1 : parameter name 
                 // $arg2 : default value to return if the parameter does not exist
             'name' => $this->request->query->get('name', 'stranger'),
-            // send simple hardcode as menu
-            'menuItems' => [
-                [
-                    'href' => '/', 
-                    'text' => 'Homepage'
-                ]
-            ],
         ];
         // render the homepage template with the $data values
         $html = $this->renderer->render('Homepage', $data);

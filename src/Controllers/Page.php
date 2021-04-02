@@ -4,7 +4,7 @@ declare(strict_types = 1);
 namespace Example\Controllers;
 
 use Symfony\Component\HttpFoundation\Response;
-use Example\Template\Renderer;
+use Example\Template\FrontendRenderer;
 use Example\Page\PageReader;
 use Example\Page\InvalidPageException;
 
@@ -16,7 +16,8 @@ class Page
 
     public function __construct(
         Response $response, 
-        Renderer $renderer, 
+        // specify we want the front end renderer
+        FrontendRenderer $renderer, 
         PageReader $page_reader
     )
     {
