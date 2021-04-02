@@ -11,3 +11,12 @@ Implementation of [No Framework Tutorial](https://github.com/PatrickLouys/no-fra
 - [Auryn Dependency Injector](https://github.com/rdlowrey/Auryn#injection-definitions)
 - [Twig Templating](https://twig.symfony.com/doc/3.x/intro.html)
 - [Pure CSS](https://purecss.io/start/)
+
+# TODO
+- fix some possible security issues
+  - whitelist page files
+  - printing input directly to page
+  - etc
+- read pages from database ?
+- better error handling (re-throw on catch?)
+- streamline 404 content
