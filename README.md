@@ -6,6 +6,7 @@ Implementation of [No Framework Tutorial](https://github.com/PatrickLouys/no-fra
 - [PHP](https://www.php.net/downloads.php)
 - [Composer](https://getcomposer.org/)
 - [Whoops Error Handler](https://github.com/filp/whoops)
+- [FastRoute](https://github.com/nikic/FastRoute)
 - [Symfony HttpFoundation Request](https://symfony.com/doc/current/components/http_foundation.html#request)
 - [Symfony HttpFoundation Response](https://symfony.com/doc/current/components/http_foundation.html#response)
 - [Auryn Dependency Injector](https://github.com/rdlowrey/Auryn#injection-definitions)
